@@ -22,6 +22,11 @@ public class CategoryRepository {
 		List<CategoryVo> list = sqlSession.selectList("category.findAllById", blogId);
 		return list;
 	}
+
+	public boolean deleteByNo(int categoryNo) {
+		int count = sqlSession.delete("", categoryNo);
+		return count == 1;
+	}
 	
 	
 }

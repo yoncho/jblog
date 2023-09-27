@@ -11,9 +11,10 @@
 	
 	<select id="findAllById" parameterType="string" resultType="categoryvo">
 		<![CDATA[
-		select no, name, description, blog_id 
-		from category
-		where blog_id=#{blogId}
+		select c.no as no, c.name as name, c.description as description, c.blog_id as blogId, (select count(*) from post where category_no=c.no) as postCount
+		from category c
+		where c.blog_id=#{blogId}
+		order by c.no desc;
 		]]>
 	</select>
 </mapper>

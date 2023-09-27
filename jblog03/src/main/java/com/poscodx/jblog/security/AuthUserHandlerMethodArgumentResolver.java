@@ -41,14 +41,12 @@ public class AuthUserHandlerMethodArgumentResolver implements HandlerMethodArgum
 		if(authUser == null) {
 			return false;
 		}
-			
 		// UserVo Type인지 Check.
 		if(!parameter.getParameterType().equals(UserVo.class))
 		{
 			return false;
 		}
-		
-		
+
 		return true;
 	}
 

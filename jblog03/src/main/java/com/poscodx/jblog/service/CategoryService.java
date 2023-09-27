@@ -20,5 +20,9 @@ public class CategoryService {
 	public List<CategoryVo> findAllById(String blogId) {
 		return categoryRepository.findAllById(blogId);
 	}
+
+	public void deleteByNo(int categoryNo) {
+		categoryRepository.deleteByNo(categoryNo);
+	}
 	
 }

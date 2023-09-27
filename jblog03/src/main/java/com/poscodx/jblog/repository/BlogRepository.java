@@ -16,4 +16,8 @@ public class BlogRepository {
 		return count == 1;
 	}
 
+	public BlogVo findById(String blogId) {
+		return sqlSession.selectOne("blog.findById", blogId);
+	}
+
 }

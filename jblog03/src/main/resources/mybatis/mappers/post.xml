@@ -4,10 +4,33 @@
 <mapper namespace="post">
 	<select id="findAllById" parameterType="string" resultType="postvo">
 		<![CDATA[
-		select p.no, p.title, p.contents, p.category_no
+		select p.no as no, p.title as title, p.contents as contents, p.category_no as categoryNo
 		from post p, category c
 		where p.category_no=c.no
-		and c.blog_id=#{blogId};
+		and c.blog_id=#{blogId}
 		]]>
 	</select>
+	<select id="findAllByCategory" parameterType="map" resultType="postvo">
+		<![CDATA[
+		select p.no as no, p.title as title, p.contents as contents, p.category_no as categoryNo
+		from post p, category c
+		where p.category_no=c.no
+		and c.blog_id=#{id} 
+		and c.no=#{category}
+		]]>
+	</select>
+	
+	<select id="findByNo" parameterType="long" resultType="postvo">
+		<![CDATA[
+		select no, title, contents, category_no
+		from post
+		where no=#{postNo}
+		]]>
+	</select>
+	
+	<delete id="deleteAllByCategoryNo">
+		<![CDATA[
+		
+		]]>
+	</delete>
 </mapper>

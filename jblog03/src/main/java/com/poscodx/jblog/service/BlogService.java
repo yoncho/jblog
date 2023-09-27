@@ -22,6 +22,10 @@ public class BlogService {
 	public void insertById(String id) {
 		blogRepository.insertById(defaultBlog(id));
 	}
+
+	public BlogVo findById(String blogId) {
+		return blogRepository.findById(blogId);
+	}
 	
 	
 	

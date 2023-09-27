@@ -8,13 +8,21 @@ public class CategoryVo {
 	private String name;
 	private String description;
 	private String blogId;
+	private int postCount;
 	
-	public CategoryVo(String name, String description, String BlogId) {
+	public CategoryVo(String name, String description, String blogId) {
 		this.name=name;
 		this.description=description;
 		this.blogId=blogId;
 	}
-	
+
+	public int getPostCount() {
+		return postCount;
+	}
+
+	public void setPostCount(int postCount) {
+		this.postCount = postCount;
+	}
 	public Long getNo() {
 		return no;
 	}
