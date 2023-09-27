@@ -35,4 +35,9 @@ public class PostRepository {
 		int count = sqlSession.delete("post.deleteAllByCategoryNo", categoryNo);
 		return count == 1;
 	}
+
+	public boolean insert(PostVo post) {
+		int count = sqlSession.insert("post.insert", post);
+		return count == 1;
+	}
 }

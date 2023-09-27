@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
@@ -28,11 +29,11 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 
-	//MAIN START
+	// MAIN START
 	@RequestMapping({ "", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
 			@PathVariable("id") String blogId, 
-			@PathVariable("categoryNo") Optional<Long> categoryNo, // null일때																								// 않을까?
+			@PathVariable("categoryNo") Optional<Long> categoryNo,																								// 않을까?
 			@PathVariable("postNo") Optional<Long> postNo, Model model) {
 		// category list
 		List<CategoryVo> categoryList = categoryService.findAllById(blogId);
@@ -64,9 +65,9 @@ public class BlogController {
 		model.addAttribute("blogVo", blog);
 		return "blog/main";
 	}
-	//MAIN END
-	
-	//BASIC START
+	// MAIN END
+
+	// BASIC START
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String blogId, Model model) {
 		BlogVo blog = blogService.findById(blogId);
@@ -74,9 +75,9 @@ public class BlogController {
 		model.addAttribute("blogVo", blog);
 		return "blog/admin-basic";
 	}
-	//BASIC END
+	// BASIC END
 
-	//CATEGORY START
+	// CATEGORY START
 	@RequestMapping("/admin/category")
 	public String adminCategory(@PathVariable("id") String blogId, Model model) {
 		// category list
@@ -85,41 +86,58 @@ public class BlogController {
 		model.addAttribute("blogId", blogId);
 		return "blog/admin-category";
 	}
-	
+
 	@RequestMapping("/admin/category/write")
-	public String addCategory(
-			@PathVariable("id") String blogId,
-			@ModelAttribute CategoryVo category) {
+	public String addCategory(@PathVariable("id") String blogId, @ModelAttribute CategoryVo category) {
 		System.out.println("###################################" + category);
 		categoryService.insert(category);
-		return "redirect:/"+blogId+"/admin/category";
+		return "redirect:/" + blogId + "/admin/category";
 	}
-	
+
 	@RequestMapping("/admin/category/delete/{no}")
-	public String deleteCategory(
-			@PathVariable("id") String blogId,
-			@PathVariable("no") int categoryNo) {
+	public String deleteCategory(@PathVariable("id") String blogId, @PathVariable("no") int categoryNo) {
 		System.out.println("######################################" + categoryNo);
-		
-		//1. delete post by category
+
+		// 1. delete post by category
 		postService.deleteAllByCategoryNo(categoryNo);
-		//2. delete category
+		// 2. delete category
 		categoryService.deleteByNo(categoryNo);
-		
-		return "redirect:/"+blogId+"/admin/category";
+
+		return "redirect:/" + blogId + "/admin/category";
 	}
-	//CATEGORY END
-	
-	
-	@RequestMapping("/admin/write")
+	// CATEGORY END
+
+	// WRITE START
+	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
 	public String adminWrite(
 			@PathVariable("id") String blogId, 
+			String category, 
+			Model model) {
+
+		List<CategoryVo> categoryList = categoryService.findAllById(blogId);
+		System.out.println("#################################" + category);
+		if (category == null) {
+			category = categoryList.get(0).getName();
+		}
+		model.addAttribute("blogId", blogId);
+		model.addAttribute("categorylist", categoryList);
+		
+		model.addAttribute("category", category);
+		return "blog/admin-write";
+	}
+	
+	@RequestMapping(value="/admin/write", method=RequestMethod.POST)
+	public String adminWrite(
+			@PathVariable("id") String blogId, 
+			String category, 
+			@ModelAttribute PostVo post, 
 			Model model) {
 		
-		
-		model.addAttribute("blogId", blogId);
-		
-		
-		return "redirect:/"+blogId+"/admin/write";
+		int categoryNo = categoryService.findNoByName(category);
+		post.setCategoryNo(categoryNo);
+		System.out.println("######################" + post);
+		postService.insert(post);
+		return "redirect:/" + blogId + "/"+ categoryNo;
 	}
+	// WRITE END
 }

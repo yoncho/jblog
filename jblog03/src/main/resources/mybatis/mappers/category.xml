@@ -18,6 +18,14 @@
 		]]>
 	</select>
 	
+	<select id="findNoByName" parameterType="string" resultType="int">
+		<![CDATA[
+		select no 
+		from category
+		where name=#{categoryName}
+		]]>
+	</select>
+	
 	<delete id="deleteByNo" parameterType="int">
 		<![CDATA[
 		delete from category

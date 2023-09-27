@@ -31,4 +31,8 @@ public class PostService {
 		postRepository.deleteAllByCategoryNo(categoryNo);
 	}
 
+	public void insert(PostVo post) {
+		postRepository.insert(post);
+	}
+
 }

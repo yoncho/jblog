@@ -27,6 +27,10 @@ public class CategoryRepository {
 		int count = sqlSession.delete("category.deleteByNo", categoryNo);
 		return count == 1;
 	}
+
+	public int findNoByName(String categoryName) {
+		return sqlSession.selectOne("category.findNoByName",categoryName);
+	}
 	
 	
 }

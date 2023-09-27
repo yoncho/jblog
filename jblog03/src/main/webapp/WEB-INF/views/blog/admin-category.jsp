@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!doctype html>
 <html>
 <head>
@@ -46,20 +46,24 @@
 							<td>${category.name}</td>
 							<td>${category.postCount }</td>
 							<td>${category.description}</td>
-							<td><a href="${pageContext.request.contextPath}/${blogId}/admin/category/delete/${category.no}">
+							<td>
+							<c:if test="${fn:length(categorylist) - status.index != '1'}">
+								<a href="${pageContext.request.contextPath}/${blogId}/admin/category/delete/${category.no}">
 								<img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a>
+							</c:if>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
 
 				<h4 class="n-c">새로운 카테고리 추가</h4>
-				<form action="${pageContext.request.contextPath}/${blogId}/admin/category/write" method="post">
-				<input type="hidden" name="blogId" value="${blogId}">
-				<table id="admin-cat-add">
+				<form action="${pageContext.request.contextPath}/${blogId}/admin/category/write" 
+					method="post">
+					<input type="hidden" name="blogId" value="${blogId}">
+					<table id="admin-cat-add">
 					<tr>
 						<td class="t">카테고리명</td>
-						<td><input type="text" name="name"></td>
+						<td><input type="text" name="name"> </td>
 					</tr>
 					<tr>
 						<td class="t">설명</td>
@@ -69,7 +73,7 @@
 						<td class="s">&nbsp;</td>
 						<td><input type="submit" value="카테고리 추가"></td>
 					</tr>
-				</table>
+					</table>
 				</form>
 			</div>
 		</div>

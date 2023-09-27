@@ -3,16 +3,16 @@ package com.poscodx.jblog.vo;
 import javax.validation.constraints.NotEmpty;
 
 public class PostVo {
-	private Long no;
+	private int no;
 	@NotEmpty
 	private String title;
 	@NotEmpty
 	private String contents;
-	private Long categoryNo;
-	public Long getNo() {
+	private int categoryNo;
+	public int getNo() {
 		return no;
 	}
-	public void setNo(Long no) {
+	public void setNo(int no) {
 		this.no = no;
 	}
 	public String getTitle() {
@@ -27,10 +27,10 @@ public class PostVo {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public Long getCategoryNo() {
+	public int getCategoryNo() {
 		return categoryNo;
 	}
-	public void setCategoryNo(Long categoryNo) {
+	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
 	@Override
