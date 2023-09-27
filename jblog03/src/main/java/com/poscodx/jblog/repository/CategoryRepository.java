@@ -24,7 +24,7 @@ public class CategoryRepository {
 	}
 
 	public boolean deleteByNo(int categoryNo) {
-		int count = sqlSession.delete("", categoryNo);
+		int count = sqlSession.delete("category.deleteByNo", categoryNo);
 		return count == 1;
 	}
 	

@@ -102,7 +102,7 @@ public class BlogController {
 		System.out.println("######################################" + categoryNo);
 		
 		//1. delete post by category
-//		postService.deleteByCategoryNo();
+		postService.deleteAllByCategoryNo(categoryNo);
 		//2. delete category
 		categoryService.deleteByNo(categoryNo);
 		

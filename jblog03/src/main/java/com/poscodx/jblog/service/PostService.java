@@ -27,4 +27,8 @@ public class PostService {
 		return postRepository.findByNo(postNo);
 	}
 
+	public void deleteAllByCategoryNo(int categoryNo) {
+		postRepository.deleteAllByCategoryNo(categoryNo);
+	}
+
 }

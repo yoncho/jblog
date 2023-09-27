@@ -14,7 +14,14 @@
 		select c.no as no, c.name as name, c.description as description, c.blog_id as blogId, (select count(*) from post where category_no=c.no) as postCount
 		from category c
 		where c.blog_id=#{blogId}
-		order by c.no desc;
+		order by c.no desc
 		]]>
 	</select>
+	
+	<delete id="deleteByNo" parameterType="int">
+		<![CDATA[
+		delete from category
+		where no=#{categoryNo}
+		]]>
+	</delete>
 </mapper>

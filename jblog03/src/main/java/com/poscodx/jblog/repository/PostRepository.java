@@ -30,4 +30,9 @@ public class PostRepository {
 	public PostVo findByNo(Long postNo) {
 		return sqlSession.selectOne("post.findByNo", postNo);
 	}
+
+	public boolean deleteAllByCategoryNo(int categoryNo) {
+		int count = sqlSession.delete("post.deleteAllByCategoryNo", categoryNo);
+		return count == 1;
+	}
 }
