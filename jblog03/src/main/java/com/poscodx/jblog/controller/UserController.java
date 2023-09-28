@@ -52,7 +52,7 @@ public class UserController {
 		//user join & create blog & default category
 		userService.join(vo);
 		blogService.insertById(vo.getId());
-		CategoryVo category = new CategoryVo("기타","기타 카테고리",vo.getId());
+		CategoryVo category = new CategoryVo("(미지정)","기본 카테고리입니다. (삭제 불가능)",vo.getId());
 		categoryService.insert(category);
 		return "user/joinsuccess";
 	}

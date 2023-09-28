@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
@@ -18,6 +22,7 @@ import com.poscodx.jblog.service.PostService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.PostVo;
+import com.poscodx.jblog.vo.UserVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}") // assets이라 쳐도 들어오니까 정적 리소스 예외처리 해놓고,, 해야함 path variable 정규식 사용하기!
@@ -28,21 +33,20 @@ public class BlogController {
 	private CategoryService categoryService;
 	@Autowired
 	private BlogService blogService;
-
 	// MAIN START
 	@RequestMapping({ "", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
 			@PathVariable("id") String blogId, 
 			@PathVariable("categoryNo") Optional<Long> categoryNo,																								// 않을까?
-			@PathVariable("postNo") Optional<Long> postNo, Model model) {
-		// category list
+			@PathVariable("postNo") Optional<Long> postNo,
+			HttpSession session,
+			Model model) {
 		List<CategoryVo> categoryList = categoryService.findAllById(blogId);
-		// post list
 		List<PostVo> postList = new ArrayList();
 		PostVo currentPost = new PostVo();
-		// blog
 		BlogVo blog = blogService.findById(blogId);
-
+		boolean isAdmin = false;
+		
 		if (categoryNo.isPresent() && postNo.isPresent()) {
 			// categoryNo와 postNo 둘다 있는 경우
 			postList = postService.findAllByCategory(blogId, categoryNo.get());
@@ -50,19 +54,31 @@ public class BlogController {
 		} else if (categoryNo.isPresent() && !postNo.isPresent()) {
 			// categoryNo만 있는 경우
 			postList = postService.findAllByCategory(blogId, categoryNo.get());
-			currentPost = postList.get(0);
+			if(postList.size() > 0 ) {
+				currentPost = postList.get(0);
+			}
 			model.addAttribute("currentCategory", categoryNo.get());
 		} else {
 			// default
 			postList = postService.findAllById(blogId);
-			currentPost = postList.get(0);
+			System.out.println("##########################" + postList);
+			if(postList.size() > 0) {
+				currentPost = postList.get(0);
+			}
 		}
-
+		// check admin
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser != null && (authUser.getId()).equals(blogId))
+		{
+			isAdmin = true;
+		}
+		
 		// model binding
 		model.addAttribute("postlist", postList);
 		model.addAttribute("categorylist", categoryList);
 		model.addAttribute("currentPost", currentPost);
 		model.addAttribute("blogVo", blog);
+		model.addAttribute("isAdmin", isAdmin);
 		return "blog/main";
 	}
 	// MAIN END
@@ -70,10 +86,31 @@ public class BlogController {
 	// BASIC START
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String blogId, Model model) {
+		System.out.println("##################################");
+		System.out.println("controller");
 		BlogVo blog = blogService.findById(blogId);
+		
 		model.addAttribute("blogId", blogId);
 		model.addAttribute("blogVo", blog);
 		return "blog/admin-basic";
+	}
+	
+	@RequestMapping("/admin/basic/update")
+	public String adminBasciUpdate(
+			@PathVariable("id") String blogId,
+			@PathVariable("title") String title,
+			@RequestParam("logo-file") MultipartFile file) {
+		System.out.println("#################################" + file.getOriginalFilename());
+		
+		String imageUrl = "";
+		//Blog Vo
+		BlogVo blog = new BlogVo();
+		blog.setBlogId(blogId);
+		blog.setTitle(title);
+		blog.setImage(imageUrl);
+		
+		
+		return "redirect:/"+blogId+"/admin/basic";
 	}
 	// BASIC END
 

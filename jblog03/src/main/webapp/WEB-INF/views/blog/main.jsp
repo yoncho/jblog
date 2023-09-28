@@ -15,10 +15,18 @@
 		<div id="header">
 			<h1>${blogVo.title}</h1>
 			<ul>
-				<li><a href="">로그인</a></li>
-				<li><a href="">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath}/${id}/admin/basic">블로그 관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/auth">로그인</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+				<c:choose>
+					<c:when test="${isAdmin eq true}">
+						<li><a href="${pageContext.request.contextPath}/${id}/admin/basic">블로그 관리</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="${pageContext.request.contextPath}">홈으로 이동</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
+			
 		</div>
 		<div id="wrapper">
 			<div id="content">

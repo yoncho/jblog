@@ -26,6 +26,10 @@ public class BlogService {
 	public BlogVo findById(String blogId) {
 		return blogRepository.findById(blogId);
 	}
+
+	public boolean checkBlogExist(String blogId) {
+		return blogRepository.checkBlogExist(blogId);
+	}
 	
 	
 	

@@ -16,4 +16,12 @@
 		where blog_id=#{blogId}
 		]]>
 	</select>
+	
+	<select id="checkBlogExist" parameterType="string" resultType="int">
+		<![CDATA[
+		select count(*)
+		from blog
+		where blog_id=#{blogId}
+		]]>
+	</select>
 </mapper>

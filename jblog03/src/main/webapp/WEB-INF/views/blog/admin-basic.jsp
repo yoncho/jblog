@@ -26,7 +26,10 @@
 					<li><a href="${pageContext.request.contextPath}/${blogId}/admin/category">카테고리</a></li>
 					<li><a href="${pageContext.request.contextPath}/${blogId}/admin/write">글작성</a></li>
 				</ul>
-				<form action="" method="post">
+				<form
+					action="${pageContext.request.contextPath}/${blogId}/admin/basic/update"
+					method="post"
+					enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>

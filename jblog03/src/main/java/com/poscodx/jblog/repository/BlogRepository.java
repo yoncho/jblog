@@ -20,4 +20,9 @@ public class BlogRepository {
 		return sqlSession.selectOne("blog.findById", blogId);
 	}
 
+	public boolean checkBlogExist(String blogId) {
+		int count = sqlSession.selectOne("blog.checkBlogExist", blogId);
+		return count > 0;
+	}
+
 }
