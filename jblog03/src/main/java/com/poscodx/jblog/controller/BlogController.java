@@ -79,6 +79,7 @@ public class BlogController {
 		model.addAttribute("currentPost", currentPost);
 		model.addAttribute("blogVo", blog);
 		model.addAttribute("isAdmin", isAdmin);
+		model.addAttribute("authUser", authUser);
 		return "blog/main";
 	}
 	// MAIN END
