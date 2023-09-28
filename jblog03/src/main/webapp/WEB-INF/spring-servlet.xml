@@ -36,7 +36,7 @@
 			<bean class="com.poscodx.jblog.security.LogoutInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/**/admin/basic"/>
+			<mvc:mapping path="/**/admin/**"/>
 			<bean class="com.poscodx.jblog.interceptor.AdminInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>

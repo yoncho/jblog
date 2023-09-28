@@ -14,9 +14,7 @@
 		<div id="header">
 			<h1>${blogVo.title}</h1>
 			<ul>
-				<li><a href="">로그인</a></li>
-				<li><a href="">로그아웃</a></li>
-				<li><a href="">블로그 관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/${blogId}">블로그로 이동</a></li>
 			</ul>
 		</div>
 		<div id="wrapper">
