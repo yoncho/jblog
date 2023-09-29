@@ -8,14 +8,17 @@ import com.poscodx.jblog.vo.BlogVo;
 
 @Service
 public class BlogService {
+	private String DEFAULT_IMAGE_PATH = "/assets/images/default_img.png";
+	private String DEFAULT_BLOG_TITLE = "새 블로그";
+	
 	@Autowired
 	private BlogRepository blogRepository;
 	
 	public BlogVo defaultBlog(String id) {
 		BlogVo blog = new BlogVo();
 		blog.setBlogId(id);
-		blog.setImage("");
-		blog.setTitle("Spring 이야기");
+		blog.setImage(DEFAULT_IMAGE_PATH);
+		blog.setTitle(DEFAULT_BLOG_TITLE);
 		return blog;
 	}
 	
@@ -29,6 +32,10 @@ public class BlogService {
 
 	public boolean checkBlogExist(String blogId) {
 		return blogRepository.checkBlogExist(blogId);
+	}
+
+	public void updateBlog(BlogVo blog) {
+		blogRepository.updateBlog(blog);
 	}
 	
 	

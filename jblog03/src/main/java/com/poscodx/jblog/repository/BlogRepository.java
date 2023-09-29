@@ -25,4 +25,8 @@ public class BlogRepository {
 		return count > 0;
 	}
 
+	public void updateBlog(BlogVo blog) {
+		sqlSession.update("blog.updateBlog", blog);
+	}
+
 }

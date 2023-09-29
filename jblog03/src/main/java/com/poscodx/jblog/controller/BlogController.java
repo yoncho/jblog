@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
+import com.poscodx.jblog.service.FileUploadService;
 import com.poscodx.jblog.service.PostService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
@@ -33,6 +34,8 @@ public class BlogController {
 	private CategoryService categoryService;
 	@Autowired
 	private BlogService blogService;
+	@Autowired
+	private FileUploadService fileUploadService;
 	// MAIN START
 	@RequestMapping({ "", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
@@ -99,17 +102,18 @@ public class BlogController {
 	@RequestMapping("/admin/basic/update")
 	public String adminBasciUpdate(
 			@PathVariable("id") String blogId,
-			@PathVariable("title") String title,
+			@RequestParam("title") String title,
 			@RequestParam("logo-file") MultipartFile file) {
 		System.out.println("#################################" + file.getOriginalFilename());
 		
-		String imageUrl = "";
+		String imageUrl = fileUploadService.restore(file);
 		//Blog Vo
 		BlogVo blog = new BlogVo();
 		blog.setBlogId(blogId);
 		blog.setTitle(title);
 		blog.setImage(imageUrl);
 		
+		blogService.updateBlog(blog);
 		
 		return "redirect:/"+blogId+"/admin/basic";
 	}
