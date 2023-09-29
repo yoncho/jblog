@@ -1,5 +1,7 @@
 package com.poscodx.jblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +39,9 @@ public class BlogService {
 	public void updateBlog(BlogVo blog) {
 		blogRepository.updateBlog(blog);
 	}
-	
-	
-	
+
+	public List<BlogVo> findAll() {
+		return blogRepository.findAll();
+	}
+
 }

@@ -1,5 +1,7 @@
 package com.poscodx.jblog.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,6 +29,10 @@ public class BlogRepository {
 
 	public void updateBlog(BlogVo blog) {
 		sqlSession.update("blog.updateBlog", blog);
+	}
+
+	public List<BlogVo> findAll() {
+		return sqlSession.selectList("blog.findAll");
 	}
 
 }

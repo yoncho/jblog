@@ -4,7 +4,6 @@ import javax.validation.constraints.NotEmpty;
 
 public class BlogVo {
 	private String blogId; //userId
-	
 	@NotEmpty
 	private String title;
 	@NotEmpty
