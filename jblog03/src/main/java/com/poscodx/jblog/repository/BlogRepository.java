@@ -35,4 +35,12 @@ public class BlogRepository {
 		return sqlSession.selectList("blog.findAll");
 	}
 
+	public List<BlogVo> findByTitleKeyword(String titleKeyword) {
+		return sqlSession.selectList("blog.findByTitleKeyword", titleKeyword);
+	}
+
+	public List<BlogVo> findByUserKeyword(String userKeyword) {
+		return sqlSession.selectList("blog.findByUserKeyword", userKeyword);
+	}
+
 }

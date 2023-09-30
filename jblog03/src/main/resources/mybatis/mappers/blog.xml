@@ -24,6 +24,23 @@
 		]]>
 	</select>
 	
+	<select id="findByTitleKeyword" parameterType="string" resultType="blogvo">
+		<![CDATA[
+		select blog_id as blogId, title, image
+		from blog
+		where title like '%${titleKeyword}%'
+		]]>
+	</select>
+	
+	<select id="findByUserKeyword" parameterType="string" resultType="blogvo">
+		<![CDATA[
+		select blog_id as blogId, title, image
+		from blog
+		where blog_id like '%${userKeyword}%'
+		]]>
+	</select>
+	
+	
 	<select id="checkBlogExist" parameterType="string" resultType="int">
 		<![CDATA[
 		select count(*)

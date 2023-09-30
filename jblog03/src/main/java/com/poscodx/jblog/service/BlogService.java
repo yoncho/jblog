@@ -44,4 +44,12 @@ public class BlogService {
 		return blogRepository.findAll();
 	}
 
+	public List<BlogVo> findByTitleKeyword(String titleKeyword) {
+		return blogRepository.findByTitleKeyword(titleKeyword);
+	}
+
+	public List<BlogVo> findByUserKeyword(String userKeyword) {
+		return blogRepository.findByUserKeyword(userKeyword);
+	}
+
 }

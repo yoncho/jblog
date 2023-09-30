@@ -15,14 +15,14 @@
 	<!-- header & search -->
 	<div class="center-content">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
-		<form class="search-form">
+		<form class="search-form" action="${pageContext.request.contextPath}">
 			<fieldset>
 				<input type="text" name="keyword" /> <input type="submit"
 					value="검색" />
 			</fieldset>
 			<fieldset>
-				<input type="radio" name="which" value="blog-title"> <label>블로그
-					제목</label> <input type="radio" name="which" value="tag"> <label>태그</label>
+				<input type="radio" name="which" value="blog-title"> <label>블로그 제목</label> 
+				<input type="radio" name="which" value="tag"> <label>태그</label>
 				<input type="radio" name="which" value="blog-user"> <label>블로거</label>
 			</fieldset>
 		</form>
