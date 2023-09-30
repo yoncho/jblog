@@ -64,7 +64,6 @@ public class BlogController {
 		} else {
 			// default
 			postList = postService.findAllById(blogId);
-			System.out.println("##########################" + postList);
 			if(postList.size() > 0) {
 				currentPost = postList.get(0);
 			}
@@ -90,8 +89,6 @@ public class BlogController {
 	// BASIC START
 	@RequestMapping("/admin/basic")
 	public String adminBasic(@PathVariable("id") String blogId, Model model) {
-		System.out.println("##################################");
-		System.out.println("controller");
 		BlogVo blog = blogService.findById(blogId);
 		
 		model.addAttribute("blogId", blogId);
@@ -103,9 +100,7 @@ public class BlogController {
 	public String adminBasciUpdate(
 			@PathVariable("id") String blogId,
 			@RequestParam("title") String title,
-			@RequestParam("logo-file") MultipartFile file) {
-		System.out.println("#################################" + file.getOriginalFilename());
-		
+			@RequestParam("logo-file") MultipartFile file) {		
 		String imageUrl = fileUploadService.restore(file);
 		//Blog Vo
 		BlogVo blog = new BlogVo();
@@ -131,15 +126,12 @@ public class BlogController {
 
 	@RequestMapping("/admin/category/write")
 	public String addCategory(@PathVariable("id") String blogId, @ModelAttribute CategoryVo category) {
-		System.out.println("###################################" + category);
 		categoryService.insert(category);
 		return "redirect:/" + blogId + "/admin/category";
 	}
 
 	@RequestMapping("/admin/category/delete/{no}")
 	public String deleteCategory(@PathVariable("id") String blogId, @PathVariable("no") int categoryNo) {
-		System.out.println("######################################" + categoryNo);
-
 		// 1. delete post by category
 		postService.deleteAllByCategoryNo(categoryNo);
 		// 2. delete category
@@ -157,7 +149,6 @@ public class BlogController {
 			Model model) {
 
 		List<CategoryVo> categoryList = categoryService.findAllById(blogId);
-		System.out.println("#################################" + category);
 		if (category == null) {
 			category = categoryList.get(0).getName();
 		}
@@ -177,7 +168,6 @@ public class BlogController {
 		
 		int categoryNo = categoryService.findNoByName(category);
 		post.setCategoryNo(categoryNo);
-		System.out.println("######################" + post);
 		postService.insert(post);
 		return "redirect:/" + blogId + "/"+ categoryNo;
 	}

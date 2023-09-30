@@ -17,7 +17,6 @@ public class AdminInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null || !(authUser.getId()).equals(blogId)) {
-			System.out.println("#############################FAIL");
 			response.sendRedirect(request.getContextPath() +"/"+blogId);
 			return false;
 		}
