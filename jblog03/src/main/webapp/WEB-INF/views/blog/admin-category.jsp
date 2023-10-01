@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<spring:eval expression="@blog" var="blog"/>
 <!doctype html>
 <html>
 <head>
@@ -14,7 +16,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>Spring 이야기</h1>
+			<h1>${blog.title}</h1>
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/${blogId}">블로그로 이동</a></li>
 			</ul>
@@ -77,7 +79,7 @@
 		</div>
 		<div id="footer">
 			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
+				<strong>${blog.title}</strong> is powered by JBlog (c)2016
 			</p>
 		</div>
 	</div>

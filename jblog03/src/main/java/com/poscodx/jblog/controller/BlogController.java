@@ -6,7 +6,9 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +30,8 @@ import com.poscodx.jblog.vo.UserVo;
 @Controller
 @RequestMapping("/{id:(?!assets).*}") // assets이라 쳐도 들어오니까 정적 리소스 예외처리 해놓고,, 해야함 path variable 정규식 사용하기!
 public class BlogController {
+	private String DEFAULT_IMAGE_PATH = "/assets/images/default_img.png";
+	
 	@Autowired
 	private PostService postService;
 	@Autowired
@@ -36,6 +40,9 @@ public class BlogController {
 	private BlogService blogService;
 	@Autowired
 	private FileUploadService fileUploadService;
+	@Autowired
+	private ApplicationContext applicationContext;
+	
 	// MAIN START
 	@RequestMapping({ "", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
@@ -47,7 +54,11 @@ public class BlogController {
 		List<CategoryVo> categoryList = categoryService.findAllById(blogId);
 		List<PostVo> postList = new ArrayList();
 		PostVo currentPost = new PostVo();
-		BlogVo blog = blogService.findById(blogId);
+		//applicationBlog
+		BlogVo applicationBlog = (BlogVo)applicationContext.getBean("blog");
+		BlogVo userBlog = blogService.findById(blogId);
+		BeanUtils.copyProperties(userBlog, applicationBlog);
+		
 		boolean isAdmin = false;
 		
 		if (categoryNo.isPresent() && postNo.isPresent()) {
@@ -79,7 +90,6 @@ public class BlogController {
 		model.addAttribute("postlist", postList);
 		model.addAttribute("categorylist", categoryList);
 		model.addAttribute("currentPost", currentPost);
-		model.addAttribute("blogVo", blog);
 		model.addAttribute("isAdmin", isAdmin);
 		model.addAttribute("authUser", authUser);
 		return "blog/main";
@@ -100,14 +110,22 @@ public class BlogController {
 	public String adminBasciUpdate(
 			@PathVariable("id") String blogId,
 			@RequestParam("title") String title,
-			@RequestParam("logo-file") MultipartFile file) {		
-		String imageUrl = fileUploadService.restore(file);
+			@RequestParam("logo-file") MultipartFile file) {	
+		String imageUrl = DEFAULT_IMAGE_PATH;
+		
+		if(!file.isEmpty()) {
+			imageUrl = fileUploadService.restore(file);
+		}
+		
 		//Blog Vo
 		BlogVo blog = new BlogVo();
 		blog.setBlogId(blogId);
 		blog.setTitle(title);
 		blog.setImage(imageUrl);
 		
+		//applicationBlog
+		BlogVo applicationBlog = (BlogVo)applicationContext.getBean("blog");
+		BeanUtils.copyProperties(blog, applicationBlog);
 		blogService.updateBlog(blog);
 		
 		return "redirect:/"+blogId+"/admin/basic";

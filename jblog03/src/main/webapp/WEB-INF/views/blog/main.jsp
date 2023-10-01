@@ -1,8 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%pageContext.setAttribute("newline", "/n");%>
+<spring:eval expression="@blog" var="blog"/>
 <!doctype html>
 <html>
 <head>
@@ -13,7 +15,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>${blogVo.title}</h1>
+			<h1>${blog.title}</h1>
 			<ul>
 				<c:choose>
 					<c:when test="${empty authUser}">
@@ -67,7 +69,7 @@
 		
 		<div id="footer">
 			<p>
-				<strong>${blogVo.title}</strong> is powered by JBlog (c)2016
+				<strong>${blog.title}</strong> is powered by JBlog (c)2016
 			</p>
 		</div>
 	</div>
