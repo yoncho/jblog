@@ -12,12 +12,7 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>${blog.title}</h1>
-			<ul>
-				<li><a href="${pageContext.request.contextPath}/${blogId}">블로그로 이동</a></li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/blog/includes/header.jsp"/>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
@@ -52,11 +47,7 @@
 				</form>
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<strong>${blog.title}</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/blog/includes/footer.jsp"/>
 	</div>
 </body>
 </html>

@@ -36,7 +36,6 @@
 					</c:otherwise>
 				</c:choose>
 			</ul>
-			
 		</div>
 		<div id="wrapper">
 			<div id="content">
@@ -54,7 +53,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}${blogVo.image}">
+				<img src="${pageContext.request.contextPath}${blog.image}">
 			</div>
 		</div>
 
@@ -67,11 +66,7 @@
 			</ul>
 		</div>
 		
-		<div id="footer">
-			<p>
-				<strong>${blog.title}</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/blog/includes/footer.jsp"/>
 	</div>
 </body>
 </html>
