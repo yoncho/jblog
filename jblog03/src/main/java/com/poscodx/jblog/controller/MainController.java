@@ -19,6 +19,8 @@ import com.poscodx.jblog.vo.UserVo;
 
 @Controller
 public class MainController {
+	private String DEFAULT_CHECKED_RADIO = "blog-title";
+	
 	@Autowired
 	private BlogService blogService;
 	
@@ -29,9 +31,8 @@ public class MainController {
 			@RequestParam Optional<String> which,
 			Model model) {
 		List<BlogVo> list = new ArrayList<BlogVo>();
-
+		
 		if(keyword.isPresent() && which.isPresent()) {
-			
 			//keyword search
 			switch(which.get()) {
 			case "blog-title":
@@ -47,8 +48,12 @@ public class MainController {
 		}else {
 			//default 
 			list = blogService.findAll();
+			which = Optional.of(DEFAULT_CHECKED_RADIO);
+			keyword = Optional.of("");
 		}
 		
+		model.addAttribute("which", which.get());
+		model.addAttribute("keyword", keyword.get());
 		model.addAttribute("list", list);
 		return "main/index";
 	}
