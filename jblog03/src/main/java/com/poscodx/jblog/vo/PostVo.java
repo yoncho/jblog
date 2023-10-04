@@ -8,7 +8,15 @@ public class PostVo {
 	private String title;
 	@NotEmpty
 	private String contents;
+	private String date;
 	private int categoryNo;
+	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -32,9 +40,5 @@ public class PostVo {
 	}
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
-	}
-	@Override
-	public String toString() {
-		return "PostVo [no=" + no + ", title=" + title + ", contents=" + contents + ", categoryNo=" + categoryNo + "]";
 	}
 }

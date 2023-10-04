@@ -5,13 +5,13 @@
 	<insert id="insert" parameterType="postvo">
 		<![CDATA[
 		insert into post
-		values (null, #{title}, #{contents}, #{categoryNo})
+		values (null, #{title}, #{contents}, now(), #{categoryNo})
 		]]>
 	</insert>
 	
 	<select id="findAllById" parameterType="string" resultType="postvo">
 		<![CDATA[
-		select p.no as no, p.title as title, p.contents as contents, p.category_no as categoryNo
+		select p.no as no, p.title as title, p.contents as contents, p.date as date , p.category_no as categoryNo
 		from post p, category c
 		where p.category_no=c.no
 		and c.blog_id=#{blogId}
@@ -19,7 +19,7 @@
 	</select>
 	<select id="findAllByCategory" parameterType="map" resultType="postvo">
 		<![CDATA[
-		select p.no as no, p.title as title, p.contents as contents, p.category_no as categoryNo
+		select p.no as no, p.title as title, p.contents as contents, p.date as date ,p.category_no as categoryNo
 		from post p, category c
 		where p.category_no=c.no
 		and c.blog_id=#{id} 
@@ -29,7 +29,7 @@
 	
 	<select id="findByNo" parameterType="long" resultType="postvo">
 		<![CDATA[
-		select no, title, contents, category_no
+		select no, title, contents, date, category_no
 		from post
 		where no=#{postNo}
 		]]>

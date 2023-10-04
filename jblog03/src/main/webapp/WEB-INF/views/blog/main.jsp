@@ -45,7 +45,7 @@
 				</div>
 				<ul class="blog-list">
 					<c:forEach items="${postlist}" var="post" varStatus="status">
-						<li><a href="${pageContext.request.contextPath}/${id}/${post.categoryNo}/${post.no}">${post.title}</a> <span>2015/05/02</span>	</li>
+						<li><a href="${pageContext.request.contextPath}/${id}/${post.categoryNo}/${post.no}">${post.title}</a> <span>${post.date}</span>	</li>
 					</c:forEach>
 				</ul>
 			</div>
