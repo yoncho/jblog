@@ -184,7 +184,7 @@ public class BlogController {
 			@ModelAttribute PostVo post, 
 			Model model) {
 		
-		int categoryNo = categoryService.findNoByName(category);
+		int categoryNo = categoryService.findNoByNameAndBlogId(category, blogId);
 		post.setCategoryNo(categoryNo);
 		postService.insert(post);
 		return "redirect:/" + blogId + "/"+ categoryNo;

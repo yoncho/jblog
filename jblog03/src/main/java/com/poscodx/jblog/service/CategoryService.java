@@ -25,8 +25,8 @@ public class CategoryService {
 		categoryRepository.deleteByNo(categoryNo);
 	}
 
-	public int findNoByName(String category) {
-		return categoryRepository.findNoByName(category);
+	public int findNoByNameAndBlogId(String category, String blogId) {
+		return categoryRepository.findNoByNameAndBlogId(category, blogId);
 	}
 	
 }

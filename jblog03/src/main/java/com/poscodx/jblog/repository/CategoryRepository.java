@@ -1,6 +1,8 @@
 package com.poscodx.jblog.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,11 @@ public class CategoryRepository {
 		return count == 1;
 	}
 
-	public int findNoByName(String categoryName) {
-		return sqlSession.selectOne("category.findNoByName",categoryName);
+	public int findNoByNameAndBlogId(String categoryName, String blogId) {
+		Map<String, Object> map = new HashMap();
+		map.put("categoryName", categoryName);
+		map.put("blogId", blogId);
+		return sqlSession.selectOne("category.findNoByNameAndBlogId",map);
 	}
 	
 	

@@ -18,11 +18,12 @@
 		]]>
 	</select>
 	
-	<select id="findNoByName" parameterType="string" resultType="int">
+	<select id="findNoByNameAndBlogId" parameterType="map" resultType="int">
 		<![CDATA[
 		select no 
 		from category
 		where name=#{categoryName}
+		and blog_id=#{blogId}
 		]]>
 	</select>
 	
