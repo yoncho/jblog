@@ -58,10 +58,19 @@
 		</div>
 
 		<div id="navigation">
-			<a href="${pageContext.request.contextPath}/${id}"><h2>카테고리</h2></a>
+			<h2>카테고리</h2>
 			<ul>
 				<c:forEach items="${categorylist}" var="category">
-					<li><a href="${pageContext.request.contextPath}/${id}/${category.no}">${category.name}</a></li>
+					<li><a href="${pageContext.request.contextPath}/${id}/${category.no}">
+					<c:choose>
+			        	<c:when test="${category.no == categoryNo}">
+			        	  <h3>${category.name}</h3>
+			        	</c:when>
+			        	<c:otherwise>
+			        	${category.name}
+			       		 </c:otherwise>
+      				</c:choose>	
+					</a></li>
 				</c:forEach>
 			</ul>
 		</div>

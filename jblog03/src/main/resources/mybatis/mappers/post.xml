@@ -8,7 +8,6 @@
 		values (null, #{title}, #{contents}, now(), #{categoryNo})
 		]]>
 	</insert>
-	
 	<select id="findAllById" parameterType="string" resultType="postvo">
 		<![CDATA[
 		select p.no as no, p.title as title, p.contents as contents, p.date as date , p.category_no as categoryNo
@@ -26,7 +25,6 @@
 		and c.no=#{category}
 		]]>
 	</select>
-	
 	<select id="findByNo" parameterType="long" resultType="postvo">
 		<![CDATA[
 		select no, title, contents, date, category_no
@@ -34,7 +32,6 @@
 		where no=#{postNo}
 		]]>
 	</select>
-	
 	<delete id="deleteAllByCategoryNo" parameterType="int">
 		<![CDATA[
 		delete from post

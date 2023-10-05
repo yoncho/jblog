@@ -60,6 +60,9 @@ public class BlogController {
 		BeanUtils.copyProperties(userBlog, applicationBlog);
 		
 		boolean isAdmin = false;
+		if(!categoryNo.isPresent()) {
+			categoryNo = Optional.of(1L);
+		}
 		
 		if (categoryNo.isPresent() && postNo.isPresent()) {
 			// categoryNo와 postNo 둘다 있는 경우
@@ -92,6 +95,7 @@ public class BlogController {
 		model.addAttribute("currentPost", currentPost);
 		model.addAttribute("isAdmin", isAdmin);
 		model.addAttribute("authUser", authUser);
+		model.addAttribute("categoryNo", categoryNo.get());
 		return "blog/main";
 	}
 	// MAIN END
