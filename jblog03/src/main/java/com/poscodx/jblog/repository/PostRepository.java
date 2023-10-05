@@ -27,8 +27,11 @@ public class PostRepository {
 		return sqlSession.selectList("post.findAllByCategory", map);
 	}
 
-	public PostVo findByNo(Long postNo) {
-		return sqlSession.selectOne("post.findByNo", postNo);
+	public PostVo findByNo(String blogId, Long postNo) {
+		Map<String, Object> map = new HashMap();
+		map.put("id", blogId);
+		map.put("postNo", postNo);
+		return sqlSession.selectOne("post.findByNo", map);
 	}
 
 	public boolean deleteAllByCategoryNo(int categoryNo) {

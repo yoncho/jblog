@@ -23,8 +23,8 @@ public class PostService {
 		return postRepository.findAllByCategory(blogId, categoryNo);
 	}
 
-	public PostVo findByNo(Long postNo) {
-		return postRepository.findByNo(postNo);
+	public PostVo findByNo(String blogId, Long postNo) {
+		return postRepository.findByNo(blogId, postNo);
 	}
 
 	public void deleteAllByCategoryNo(int categoryNo) {

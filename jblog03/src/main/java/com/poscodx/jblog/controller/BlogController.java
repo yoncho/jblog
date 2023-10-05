@@ -43,6 +43,7 @@ public class BlogController {
 	@Autowired
 	private ApplicationContext applicationContext;
 	
+	private boolean isCheckedCategory = false;
 	// MAIN START
 	@RequestMapping({ "", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
@@ -60,28 +61,30 @@ public class BlogController {
 		BeanUtils.copyProperties(userBlog, applicationBlog);
 		
 		boolean isAdmin = false;
-		if(!categoryNo.isPresent()) {
-			categoryNo = Optional.of(1L);
+		
+		//1. Category 선택되었는지 확인
+		if (categoryNo.isPresent() && !postNo.isPresent()) {
+			isCheckedCategory = true;
+			model.addAttribute("selectedCategoryNo", categoryNo.get());
+		} else if(!categoryNo.isPresent() && !postNo.isPresent()){
+			isCheckedCategory = false;
 		}
 		
-		if (categoryNo.isPresent() && postNo.isPresent()) {
-			// categoryNo와 postNo 둘다 있는 경우
+		//2. Category 선택 유무에 따라 PostList 표시 범위 변경
+		if(isCheckedCategory) {
 			postList = postService.findAllByCategory(blogId, categoryNo.get());
-			currentPost = postService.findByNo(postNo.get());
-		} else if (categoryNo.isPresent() && !postNo.isPresent()) {
-			// categoryNo만 있는 경우
-			postList = postService.findAllByCategory(blogId, categoryNo.get());
-			if(postList.size() > 0 ) {
-				currentPost = postList.get(0);
-			}
-			model.addAttribute("currentCategory", categoryNo.get());
-		} else {
-			// default
+		}else {
 			postList = postService.findAllById(blogId);
-			if(postList.size() > 0) {
-				currentPost = postList.get(0);
-			}
+			
 		}
+		
+		//3. postNo가 입력된 경우 해당 post를 main화면에 표시
+		if(postNo.isPresent()) {
+			currentPost = postService.findByNo(blogId, postNo.get());
+		}else {
+			currentPost = postList.size() > 0 ? postList.get(0):null;
+		}
+		
 		// check admin
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser != null && (authUser.getId()).equals(blogId))
@@ -95,7 +98,6 @@ public class BlogController {
 		model.addAttribute("currentPost", currentPost);
 		model.addAttribute("isAdmin", isAdmin);
 		model.addAttribute("authUser", authUser);
-		model.addAttribute("categoryNo", categoryNo.get());
 		return "blog/main";
 	}
 	// MAIN END
