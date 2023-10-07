@@ -31,6 +31,7 @@
 			      		<tr>
 			      			<td class="t">로고이미지</td>
 			      			<td><img src="${pageContext.request.contextPath}${blogVo.image}"></td>      			
+			      			<td><input type="hidden" name="image" value="${blogVo.image}"></td>
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

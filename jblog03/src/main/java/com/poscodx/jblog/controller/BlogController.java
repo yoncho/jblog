@@ -116,18 +116,17 @@ public class BlogController {
 	public String adminBasciUpdate(
 			@PathVariable("id") String blogId,
 			@RequestParam("title") String title,
+			@RequestParam("image") String image,
 			@RequestParam("logo-file") MultipartFile file) {	
-		String imageUrl = DEFAULT_IMAGE_PATH;
 		
 		if(!file.isEmpty()) {
-			imageUrl = fileUploadService.restore(file);
+			image = fileUploadService.restore(file);
 		}
-		
 		//Blog Vo
 		BlogVo blog = new BlogVo();
 		blog.setBlogId(blogId);
 		blog.setTitle(title);
-		blog.setImage(imageUrl);
+		blog.setImage(image);
 		
 		//applicationBlog
 		BlogVo applicationBlog = (BlogVo)applicationContext.getBean("blog");
