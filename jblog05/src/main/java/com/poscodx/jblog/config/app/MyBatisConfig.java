@@ -17,12 +17,11 @@ public class MyBatisConfig {
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext applicationContext) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(dataSource);
-		sqlSessionFactory.setConfigLocation(applicationContext.getResource("classpath:mybatis/configuration.xml"));
+		sqlSessionFactory.setConfigLocation(applicationContext.getResource("classpath:com/poscodx/jblog/config/app/mybatis/configuration.xml"));
+		
 		return sqlSessionFactory.getObject();
 	}
 	
-	
-	//applicationContext.xml에서 bean property에 data가 ref로 받아오는 경우, parameter로 전달해서 연결...
 	@Bean
 	public SqlSession sqlSession(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);

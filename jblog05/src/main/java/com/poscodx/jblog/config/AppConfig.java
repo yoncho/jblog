@@ -11,11 +11,12 @@ import com.poscodx.jblog.config.app.MyBatisConfig;
 import com.poscodx.jblog.event.SpringContextEventListener;
 
 @Configuration
-@EnableAspectJAutoProxy
-@ComponentScan(basePackages={"com.poscodx.jblog.repository","com.poscodx.jblog.service","com.poscodx.jblog.security"})
+@EnableAspectJAutoProxy //<aop:aspectj-autoproxy/>
+@ComponentScan(basePackages={"com.poscodx.jblog.repository","com.poscodx.jblog.service","com.poscodx.jblog.security" })
 @Import({DBConfig.class, MyBatisConfig.class})
 public class AppConfig {
 	
+	//<bean class="com.poscodx.jblog.event.SpringContextEventListener" />
 	@Bean
 	public SpringContextEventListener springContextEventListener() {
 		return new SpringContextEventListener();
