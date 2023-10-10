@@ -30,8 +30,6 @@ import com.poscodx.jblog.vo.UserVo;
 @Controller
 @RequestMapping("/{id:(?!assets).*}") // assets이라 쳐도 들어오니까 정적 리소스 예외처리 해놓고,, 해야함 path variable 정규식 사용하기!
 public class BlogController {
-	private String DEFAULT_IMAGE_PATH = "/assets/images/default_img.png";
-	
 	@Autowired
 	private PostService postService;
 	@Autowired
@@ -53,7 +51,7 @@ public class BlogController {
 			HttpSession session,
 			Model model) {
 		List<CategoryVo> categoryList = categoryService.findAllById(blogId);
-		List<PostVo> postList = new ArrayList();
+		List<PostVo> postList = new ArrayList<PostVo>();
 		PostVo currentPost = new PostVo();
 		//applicationBlog
 		BlogVo applicationBlog = (BlogVo)applicationContext.getBean("blog");
