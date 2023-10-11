@@ -6,8 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.poscodx.mysite.vo.SiteVo;
-
 public class LogoutInterceptor implements HandlerInterceptor {
 	
 	@Override
