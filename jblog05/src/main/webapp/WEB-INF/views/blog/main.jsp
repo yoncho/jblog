@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%pageContext.setAttribute("newline", "/n");%>
+<%pageContext.setAttribute("newline", "\n");%>
 <spring:eval expression="@blog" var="blog"/>
 <!doctype html>
 <html>
