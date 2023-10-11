@@ -73,7 +73,6 @@
 			<version>2.0.7</version>
 		</dependency>
 
-
 		<!-- common dbcp -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
