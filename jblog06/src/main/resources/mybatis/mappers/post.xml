@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	<insert id="insert" parameterType="postvo">
+		<![CDATA[
+		insert into post
+		values (null, #{title}, #{contents}, now(), #{categoryNo})
+		]]>
+	</insert>
+	<select id="findAllById" parameterType="string" resultType="postvo">
+		<![CDATA[
+		select p.no as no, p.title as title, p.contents as contents, p.date as date , p.category_no as categoryNo
+		from post p, category c
+		where p.category_no=c.no
+		and c.blog_id=#{blogId}
+		]]>
+	</select>
+	<select id="findAllByCategory" parameterType="map" resultType="postvo">
+		<![CDATA[
+		select p.no as no, p.title as title, p.contents as contents, p.date as date ,p.category_no as categoryNo
+		from post p, category c
+		where p.category_no=c.no
+		and c.blog_id=#{id} 
+		and c.no=#{category}
+		]]>
+	</select>
+	<select id="findByNo" parameterType="map" resultType="postvo">
+		<![CDATA[
+		select p.no as no, p.title as title, p.contents as contents, p.date as date, p.category_no as categoryNo
+		from post p, category c
+		where p.category_no=c.no
+        and c.blog_id=#{id}
+        and p.no=#{postNo};
+		]]>
+	</select>
+	<delete id="deleteAllByCategoryNo" parameterType="int">
+		<![CDATA[
+		delete from post
+		where category_no=#{postNo}
+		]]>
+	</delete>
+</mapper>
